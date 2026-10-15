@@ -1,0 +1,16 @@
+{
+  "name": "darkest-dungeon-curio-guide",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local Darkest Dungeon 1 field guide with optional server-side OpenAI image analysis.",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "check-assets": "node scripts/check-assets.js",
+    "check-site": "node scripts/check-site.js",
+    "smoke": "node scripts/smoke-server.js",
+    "check": "npm run check-assets && npm run check-site && npm run smoke"
+  }
+}
