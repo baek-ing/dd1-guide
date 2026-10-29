@@ -219,5 +219,20 @@ select, button, input { background-color: #08090a; }
 .skill-list li::marker { color: var(--red); }
 .skill-special { margin: 13px 0 0; padding: 10px 12px; border-left: 2px solid var(--gold); background: rgba(233, 187, 99, .07); color: var(--gold); font-size: .82rem; font-weight: 800; line-height: 1.55; }
 .skill-reason { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid #413633; color: var(--muted); font-size: .85rem; line-height: 1.6; }
+.skill-card.is-off-rank { border-top-color: #d59d57; }
+.off-rank-warning { margin: 0 0 12px; padding: 9px 11px; border-left: 2px solid #d59d57; background: rgba(213, 157, 87, .09); color: #f0c98d; font-size: .8rem; line-height: 1.55; }
+.party-synergy { margin-top: 20px; padding: 20px; border: 1px solid #513b39; border-top: 3px solid #a46a4e; background: linear-gradient(145deg, #171415, #08090a); }
+.party-synergy > h3 { margin: 0 0 7px; color: var(--ink); font-size: 1.08rem; }
+.party-synergy > p { margin: 0 0 15px; color: var(--muted); font-size: .86rem; line-height: 1.55; }
+.synergy-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 11px; }
+.synergy-item { min-width: 0; padding: 12px; border: 1px solid #413a37; background: rgba(7, 8, 9, .58); }
+.synergy-item strong { display: block; margin-bottom: 5px; font-size: .86rem; }
+.synergy-item span { display: block; color: var(--muted); font-size: .78rem; line-height: 1.5; }
+.synergy-item.positive { border-left: 3px solid #72b878; }
+.synergy-item.positive strong { color: #a8e1a3; }
+.synergy-item.caution { border-left: 3px solid #d59d57; }
+.synergy-item.caution strong { color: #f0c98d; }
+.synergy-item.danger { border-left: 3px solid #ca6267; }
+.synergy-item.danger strong { color: #ffb6b9; }
 
-@media (max-width: 720px) { .rank-hero-selects { grid-template-columns: repeat(2, minmax(0, 1fr)); } .skill-grid { grid-template-columns: 1fr; } .party-builder { padding: 14px; } }
+@media (max-width: 720px) { .rank-hero-selects { grid-template-columns: repeat(2, minmax(0, 1fr)); } .skill-grid, .synergy-grid { grid-template-columns: 1fr; } .party-builder, .party-synergy { padding: 14px; } }

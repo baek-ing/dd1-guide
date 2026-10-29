@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#050607" />
     <title>다키스트 던전 1 · 기물 가이드</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23120e0d'/%3E%3Cpath d='M16 3 19 13 29 16 19 19 16 29 13 19 3 16 13 13Z' fill='%23d64b50'/%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="styles.css?v=20261030-1" />
+    <link rel="stylesheet" href="styles.css?v=20261030-2" />
   </head>
   <body>
     <main class="shell">
@@ -80,7 +80,7 @@
         <header class="tab-intro expedition-intro">
           <p class="eyebrow">Expedition Loadout · Offline Planner</p>
           <h1>출정 세팅 추천</h1>
-          <p>이미지·API·장신구 분석 없이 바로 작동하는 파티 편성표입니다. 지역·일반/보스전·각 열의 영웅을 고르면 해당 조건의 추천 운용 스킬을 즉시 표시합니다. 한 열 이상 비워 두고 조합 추천을 누르면 그 던전에 맞는 영웅을 순서대로 채웁니다.</p>
+          <p>이미지·API·장신구 분석 없이 바로 작동하는 파티 편성표입니다. 지역·일반/보스전·각 열의 영웅을 고르면 해당 조건의 추천 운용 스킬과 파티 시너지 진단을 즉시 표시합니다. 한 열 이상 비워 두고 조합 추천을 누르면 그 던전에 맞는 영웅을 순서대로 채웁니다.</p>
         </header>
 
         <section class="expedition-workbench" aria-labelledby="setup-title">
@@ -129,7 +129,7 @@
                 <p class="eyebrow">2 · 영웅 선택</p>
                 <h3 id="party-builder-title">1열부터 4열까지 편성</h3>
               </div>
-              <p>각 목록에는 해당 열에서 실전 운용이 가능한 영웅만 표시됩니다. 영웅·지역·유형을 바꾸면 아래 운용 스킬이 갱신됩니다. 결투가는 특칙상 전투 스킬 7개를 모두 장착합니다.</p>
+              <p>모든 열에서 모든 영웅을 선택할 수 있습니다. 주력 열 밖의 배치는 황색 경고와 함께 가장 가까운 주력 열의 참고 스킬만 표시하므로, 실제 사용 가능 스킬은 인게임에서 반드시 확인하세요. 결투가는 특칙상 전투 스킬 7개를 모두 장착합니다.</p>
             </div>
             <div id="rank-hero-selects" class="rank-hero-selects" aria-label="진형별 영웅 선택"></div>
           </section>
@@ -142,6 +142,7 @@
             <button id="recommend-party" class="analyze-button" type="button">빈 열 조합 추천</button>
           </div>
           <section id="skill-recommendations" class="skill-recommendations" aria-live="polite" aria-label="영웅별 추천 스킬"></section>
+          <section id="party-synergy" class="party-synergy" aria-live="polite" aria-label="파티 조합 시너지 검사"></section>
         </section>
       </section>
 
@@ -152,8 +153,8 @@
         <div id="source-links" class="source-links"></div>
       </section>
     </main>
-    <script src="data.js?v=20261030-1"></script>
-    <script src="app.js?v=20261030-1"></script>
-    <script src="expedition.js?v=20261030-1"></script>
+    <script src="data.js?v=20261030-2"></script>
+    <script src="app.js?v=20261030-2"></script>
+    <script src="expedition.js?v=20261030-2"></script>
   </body>
 </html>

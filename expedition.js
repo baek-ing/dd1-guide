@@ -12,6 +12,7 @@
   const recommendButton = document.querySelector("#recommend-party");
   const status = document.querySelector("#party-status");
   const result = document.querySelector("#skill-recommendations");
+  const synergy = document.querySelector("#party-synergy");
 
   const REGION_INTEL = {
     "Ruins": { normal: "불경 적 중심입니다. 후열 압박·기절·중독을 우선하고 출혈 의존은 낮춥니다.", boss: "보스전은 후열 견제와 안정적인 단일 회복을 남겨 두는 편성이 안전합니다." },
@@ -46,6 +47,19 @@
     musketeer: { name: "머스킷티어", en: "Musketeer", ranks: [3, 4], skills: { "3": ["조준 사격", "저격수의 표식", "전장 붕대", "집결의 섬광"], "4": ["조준 사격", "저격수의 표식", "전장 붕대", "집결의 섬광"] }, note: "표식 파티의 후열 저격과 보조 회복을 맡습니다." },
     runaway: { name: "도망자", en: "Runaway", ranks: [1, 2, 3, 4], skills: { "1": ["반딧불이 (Firefly)", "약탈 (Ransack)", "달리고 숨기 (Run and Hide)", "화톳불빛 (Hearthlight)"], "2": ["반딧불이 (Firefly)", "약탈 (Ransack)", "제어된 연소 (Controlled Burn)", "역화 (Backdraft)"], "3": ["타오르는 일격 (Searing Strike)", "제어된 연소 (Controlled Burn)", "역화 (Backdraft)", "달리고 숨기 (Run and Hide)"], "4": ["타오르는 일격 (Searing Strike)", "제어된 연소 (Controlled Burn)", "역화 (Backdraft)", "달리고 숨기 (Run and Hide)"] }, note: "Fire's Edge의 화상·이동 딜러입니다. 시작 열보다 이동 후에도 사용할 다음 스킬이 남는지를 먼저 확인하세요." },
     duelist: { name: "결투가", en: "Duelist", ranks: [1, 2, 3, 4], allSkills: true, skills: { "1": ["예측 (Anticipation) · 자유 행동", "투셰 (Touché)", "페인트 (Feint)", "이탈 (Disengage)", "플레슈 (Flèche)", "쿠 드 그라스 (Coup de Grâce)", "부츠 (The Boot)"], "2": ["예측 (Anticipation) · 자유 행동", "투셰 (Touché)", "페인트 (Feint)", "이탈 (Disengage)", "플레슈 (Flèche)", "쿠 드 그라스 (Coup de Grâce)", "부츠 (The Boot)"], "3": ["예측 (Anticipation) · 자유 행동", "투셰 (Touché)", "페인트 (Feint)", "이탈 (Disengage)", "플레슈 (Flèche)", "쿠 드 그라스 (Coup de Grâce)", "부츠 (The Boot)"], "4": ["예측 (Anticipation) · 자유 행동", "투셰 (Touché)", "페인트 (Feint)", "이탈 (Disengage)", "플레슈 (Flèche)", "쿠 드 그라스 (Coup de Grâce)", "부츠 (The Boot)"] }, note: "Fire's Edge의 태세·반격 이동 딜러입니다. 결투가는 7개 전투 스킬을 모두 장착하며, 예측은 행동을 소모하지 않는 태세 전환입니다." }
+  };
+
+  // 역할 태그는 조합의 장점·공백을 읽는 용도입니다. 개별 스킬의 정확한 사거리 판정은 아래 주력 열 경고를 우선합니다.
+  const HERO_TRAITS = {
+    crusader: ["frontline", "heal", "stress", "stun", "backline"], highwayman: ["frontline", "backline", "bleed", "movement"],
+    vestal: ["heal", "stun", "backline"], plague_doctor: ["heal", "stun", "blight", "backline"],
+    jester: ["stress", "bleed", "movement", "backline"], man_at_arms: ["frontline", "guard", "stress", "stun"],
+    hellion: ["frontline", "bleed", "stun", "backline"], bounty_hunter: ["frontline", "stun", "mark", "markPayoff", "backline"],
+    houndmaster: ["guard", "stress", "bleed", "mark", "markPayoff", "backline"], occultist: ["heal", "mark", "control", "backline"],
+    arbalest: ["heal", "mark", "markPayoff", "backline"], grave_robber: ["blight", "movement", "backline"],
+    flagellant: ["frontline", "heal", "bleed"], leper: ["frontline"], antiquarian: ["heal", "guard", "blight", "backline"],
+    abomination: ["frontline", "stun", "blight"], shieldbreaker: ["frontline", "bleed", "movement", "backline"],
+    musketeer: ["heal", "mark", "markPayoff", "backline"], runaway: ["burn", "movement", "backline"], duelist: ["frontline", "movement", "control", "backline"]
   };
 
   const REGION_KITS = {
@@ -122,15 +136,17 @@
     title.className = "rank-label";
     title.textContent = `${position}열`;
     const hint = document.createElement("small");
-    hint.textContent = position === "1" ? "전열" : position === "4" ? "후열" : "중열";
+    hint.textContent = `${position === "1" ? "전열" : position === "4" ? "후열" : "중열"} · 모든 영웅 선택 가능`;
     const select = document.createElement("select");
     select.dataset.position = position;
     select.setAttribute("aria-label", `${position}열 영웅 선택`);
     select.add(new Option("비움", ""));
-    Object.entries(HEROES).filter(([, hero]) => hero.ranks.includes(Number(position))).sort((a, b) => a[1].name.localeCompare(b[1].name, "ko")).forEach(([id, hero]) => select.add(new Option(`${hero.name} · ${hero.en}`, id)));
+    Object.entries(HEROES).sort((a, b) => a[1].name.localeCompare(b[1].name, "ko")).forEach(([id, hero]) => select.add(new Option(`${hero.name} · ${hero.en} · 주력 ${hero.ranks.join("/")}열`, id)));
     select.addEventListener("change", () => {
       renderRecommendations();
-      setStatus(select.value ? `${position}열 ${HEROES[select.value].name} 편성을 반영했습니다.` : `${position}열을 비웠습니다.`);
+      const hero = HEROES[select.value];
+      const offRank = hero && !hero.ranks.includes(Number(position));
+      setStatus(select.value ? `${position}열 ${hero.name} 편성을 반영했습니다.${offRank ? " 주력 열 밖 배치이므로 아래 황색 경고를 확인하세요." : ""}` : `${position}열을 비웠습니다.`, offRank ? "error" : "");
     });
     label.append(title, hint, select);
     return label;
@@ -144,7 +160,16 @@
     return (REGION_INTEL[region] || REGION_INTEL.Other)[type === "boss" ? "boss" : "normal"];
   }
 
+  function isPreferredRank(hero, position) {
+    return hero.ranks.includes(Number(position));
+  }
+
+  function nearestPreferredRank(hero, position) {
+    return hero.ranks.reduce((closest, rank) => Math.abs(rank - Number(position)) < Math.abs(closest - Number(position)) ? rank : closest, hero.ranks[0]);
+  }
+
   function kitFor(heroId, hero, position, region, type) {
+    if (!isPreferredRank(hero, position)) return hero.skills[String(nearestPreferredRank(hero, position))];
     const regionKit = REGION_KITS[region]?.[heroId];
     const bossKit = type === "boss" ? BOSS_KITS[heroId] : null;
     return bossKit?.[position] || bossKit?.any || regionKit?.[position] || regionKit?.any || hero.skills[position] || hero.skills[hero.ranks[0]];
@@ -159,6 +184,8 @@
   function cardFor(position, heroId, hero, region, type) {
     const card = document.createElement("article");
     card.className = "skill-card";
+    const offRank = !isPreferredRank(hero, position);
+    if (offRank) card.classList.add("is-off-rank");
     const title = document.createElement("h3");
     title.textContent = `${position}열 · ${hero.name}`;
     const english = document.createElement("small");
@@ -174,19 +201,88 @@
     const reason = document.createElement("p");
     reason.className = "skill-reason";
     reason.textContent = `${hero.note} ${focusFor(heroId, region, type)}`;
+    const warning = document.createElement("p");
+    warning.className = "off-rank-warning";
+    warning.textContent = `${position}열은 ${hero.name}의 주력 열(${hero.ranks.join("/")}열)이 아닙니다. 위 스킬은 가장 가까운 ${nearestPreferredRank(hero, position)}열 기준 참고안이며, 실제 사거리·이동 후 사용 가능 여부는 인게임 툴팁으로 확인하세요.`;
     if (hero.allSkills) {
       const special = document.createElement("p");
       special.className = "skill-special";
       special.textContent = "결투가 특칙 · 위 7개 전투 스킬은 모두 장착됩니다. 전투 중 태세에 따라 사용할 스킬을 선택하세요.";
-      card.append(title, skills, special, reason);
+      card.append(title, ...(offRank ? [warning] : []), skills, special, reason);
       return card;
     }
-    card.append(title, skills, reason);
+    card.append(title, ...(offRank ? [warning] : []), skills, reason);
     return card;
+  }
+
+  function makeSynergyItem(tone, title, detail) {
+    const item = document.createElement("article");
+    item.className = `synergy-item ${tone}`;
+    const heading = document.createElement("strong");
+    heading.textContent = title;
+    const copy = document.createElement("span");
+    copy.textContent = detail;
+    item.append(heading, copy);
+    return item;
+  }
+
+  function renderSynergy(chosen) {
+    synergy.replaceChildren();
+    const entries = positions.filter((position) => chosen[position]).map((position) => ({ position, id: chosen[position], hero: HEROES[chosen[position]] }));
+    const title = document.createElement("h3");
+    title.textContent = "파티 조합 시너지 검사";
+    const intro = document.createElement("p");
+    if (!entries.length) {
+      intro.textContent = "영웅을 한 명 이상 고르면 회복·스트레스 관리·후열 압박·표식·상태이상 연계를 검사합니다.";
+      synergy.append(title, intro);
+      return;
+    }
+    intro.textContent = "역할 태그를 이용한 실전용 빠른 진단입니다. 보스 고유 기믹과 개별 장신구·기벽은 별도로 확인하세요.";
+    const grid = document.createElement("div");
+    grid.className = "synergy-grid";
+    const owners = (trait) => entries.filter((entry) => (HERO_TRAITS[entry.id] || []).includes(trait));
+    const labels = (list) => list.map((entry) => entry.hero.name).join(" · ");
+    const items = [];
+    const offRank = entries.filter((entry) => !isPreferredRank(entry.hero, entry.position));
+    const duplicated = entries.filter((entry, index) => entries.findIndex((other) => other.id === entry.id) !== index);
+    const preferredFront = entries.filter((entry) => Number(entry.position) <= 2 && isPreferredRank(entry.hero, entry.position) && (HERO_TRAITS[entry.id] || []).includes("frontline"));
+    const heals = owners("heal");
+    const stress = owners("stress");
+    const backline = owners("backline");
+    const control = [...owners("stun"), ...owners("control")];
+    const markers = owners("mark");
+    const markPayoff = owners("markPayoff");
+    const bleed = owners("bleed");
+    const blightOrBurn = [...owners("blight"), ...owners("burn")];
+
+    if (entries.length < 4) items.push(makeSynergyItem("caution", "편성 공백", `${4 - entries.length}열이 비어 있습니다. 빈 열 조합 추천은 주력 열 기준 후보만 자동으로 채웁니다.`));
+    else items.push(makeSynergyItem("positive", "4인 편성", "모든 열이 선택되어 기본 조합 검사를 완료했습니다."));
+    if (offRank.length) items.push(makeSynergyItem("caution", "주력 열 밖 배치", `${offRank.map((entry) => `${entry.position}열 ${entry.hero.name}`).join(" · ")} — 실제 사용할 수 있는 스킬 사거리를 인게임에서 확인하세요.`));
+    else items.push(makeSynergyItem("positive", "주력 열 적합", "선택한 영웅이 모두 일반적인 운용 열에 배치되어 있습니다."));
+    if (preferredFront.length) items.push(makeSynergyItem("positive", "전열 유지", `${labels(preferredFront)}이(가) 전열 압박과 피해 분산을 맡습니다.`));
+    else items.push(makeSynergyItem("danger", "전열 불안정", "1~2열에 주력 전열 영웅이 없습니다. 원정 중 위치가 밀리면 행동이 끊길 수 있습니다."));
+    if (heals.length >= 2) items.push(makeSynergyItem("positive", "회복 여유", `${labels(heals)}의 회복 수단이 겹쳐 장기전 안정성이 좋습니다.`));
+    else if (heals.length === 1) items.push(makeSynergyItem("caution", "회복 단일 축", `${labels(heals)}에게 회복이 집중됩니다. 기절·이동에 대비하세요.`));
+    else items.push(makeSynergyItem("danger", "전투 회복 부재", "안정적인 전투 회복 담당이 없습니다. 장기전·보스전에서는 위험합니다."));
+    if (stress.length) items.push(makeSynergyItem("positive", "스트레스 관리", `${labels(stress)}이(가) 스트레스 회복·방어를 보조합니다.`));
+    else items.push(makeSynergyItem("caution", "스트레스 회복 없음", "긴 원정·Courtyard·Farmstead에서는 스트레스 누적에 특히 주의하세요."));
+    if (backline.length >= 2) items.push(makeSynergyItem("positive", "후열 압박", `${labels(backline)}으로 후열 처치 또는 견제가 가능합니다.`));
+    else items.push(makeSynergyItem("caution", "후열 압박 부족", "후열 스트레스 딜러·회복 적을 빠르게 처리할 수 있는지 스킬 목록을 다시 확인하세요."));
+    if (control.length) items.push(makeSynergyItem("positive", "제어 수단", `${labels(control)}이(가) 기절·끌어오기·약화 등 템포 제어를 제공합니다.`));
+    else items.push(makeSynergyItem("caution", "제어 수단 적음", "강한 적의 행동을 끊을 기절·끌어오기·약화 수단이 부족합니다."));
+    if (markers.length && markPayoff.length) items.push(makeSynergyItem("positive", "표식 연계", `${labels(markers)}의 표식과 ${labels(markPayoff)}의 표식 화력이 연결됩니다.`));
+    else if (markers.length || markPayoff.length) items.push(makeSynergyItem("caution", "표식 연계 미완성", markers.length ? "표식 부여자는 있지만 이를 크게 활용할 화력이 적습니다." : "표식 화력은 있지만 안정적인 표식 부여자가 없습니다."));
+    if (bleed.length >= 2) items.push(makeSynergyItem(regionSelect.value === "Ruins" ? "caution" : "positive", "출혈 누적", regionSelect.value === "Ruins" ? "폐허의 해골 적은 출혈 저항이 높아 출혈 중심 편성 효율이 떨어질 수 있습니다." : `${labels(bleed)}의 출혈 누적이 장기전 압박에 유리합니다.`));
+    if (blightOrBurn.length >= 2) items.push(makeSynergyItem("positive", "중독·화상 압박", `${labels(blightOrBurn)}이(가) 방어도나 장기전에서 지속 피해 선택지를 제공합니다.`));
+    if (duplicated.length) items.push(makeSynergyItem("caution", "중복 영웅", `${labels(duplicated)}이(가) 중복 선택되었습니다. 의도한 특수 편성이 아니라면 역할 분산을 고려하세요.`));
+
+    items.forEach((item) => grid.append(item));
+    synergy.append(title, intro, grid);
   }
 
   function renderRecommendations() {
     const chosen = selections();
+    renderSynergy(chosen);
     result.replaceChildren();
     const active = positions.filter((position) => chosen[position]);
     if (!active.length) {

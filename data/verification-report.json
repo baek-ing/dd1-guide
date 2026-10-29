@@ -9,10 +9,11 @@
       "version_or_context": "Current wiki.gg curio data module; vanilla, Crimson Court and Color of Madness entries shown by this guide",
       "sources": [
         "https://darkestdungeon.wiki.gg/wiki/Module%3ACurios/Data",
-        "https://namu.moe/w/%EB%8B%A4%ED%82%A4%EC%8A%A4%ED%8A%B8%20%EB%8D%98%EC%A0%84/%EA%B3%A8%EB%8F%99%ED%92%88"
+        "https://namu.moe/w/%EB%8B%A4%ED%82%A4%EC%8A%A4%ED%8A%B8%20%EB%8D%98%EC%A0%84/%EA%B3%A8%EB%8F%99%ED%92%88",
+        "https://blog.naver.com/lucy_maud/222285634469"
       ],
-      "changed": false,
-      "notes": "Existing 90-card count and warning ordering were preserved. Quest-only cards remain explicitly labelled."
+      "changed": true,
+      "notes": "The 90-card count was preserved. Courtyard entries were rechecked against the supplied Korean Courtyard table: Bloodflowers no longer lists an unsupported Blood interaction; Pile of Strange Bones now warns that Blood causes an ambush; Wine Crate adds Shovel → Firewood; and Thronging Hive correctly distinguishes its quest-only Oily Torch from an ordinary Torch. Quest-only cards remain explicitly labelled."
     },
     {
       "item": "Courtyard and Farmstead expedition context",
