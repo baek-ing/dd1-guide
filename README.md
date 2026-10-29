@@ -19,4 +19,4 @@ npm run check-assets
 npm run check
 ```
 
-`data/verification-report.json`에는 2026-10-30 기준의 내용 검증 범위와, 확인 불가/부분 확인 모드 항목이 정리되어 있습니다. 출정 추천에는 Fire's Edge의 도망자와 결투가도 포함되며, 결투가는 게임 규칙대로 7개 전투 스킬을 모두 장착하는 것으로 표시합니다.
+`data/verification-report.json`에는 2026-10-30 기준의 내용 검증 범위와, 확인 불가/부분 확인 모드 항목이 정리되어 있습니다. 출정 추천의 영웅·스킬 표기는 설치된 `koreana` 현지화 표를 기준으로 점검했으며, Fire's Edge의 도망자와 결투가도 포함합니다. 결투가는 게임 규칙대로 7개 전투 스킬을 모두 장착하는 것으로 표시합니다. Sunward Isles의 15개 기물은 설치된 Workshop 원본의 개별 인게임 PNG와 기물·효과 표를 대조해 수록했습니다.

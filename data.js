@@ -6,7 +6,7 @@ const SOURCES = {
   courtyardNaver: { label: "루시모드 블로그 · 안뜰마당 골동품/상호작용 아이템 정리", url: "https://blog.naver.com/lucy_maud/222285634469" },
   sunwardNamu: { label: "나무위키 · 태양을 향한 섬들", url: "https://namu.moe/w/%EB%8B%A4%ED%82%A4%EC%8A%A4%ED%8A%B8%20%EB%8D%98%EC%A0%84/%EB%AA%A8%EB%93%9C/%ED%83%9C%EC%96%91%EC%9D%84%20%ED%96%A5%ED%95%9C%20%EC%84%AC%EB%93%A4" },
   sunwardRecord: { label: "Sunward Isles 기물 실측표 · 다키스트 던전 마이너 갤러리", url: "https://gall.dcinside.com/mgallery/board/view/?id=darkest&no=124491" },
-  sunwardSteam: { label: "Sunward Isles · Steam Workshop", url: "https://steamcommunity.com/sharedfiles/filedetails/?id=1689234891" },
+  sunwardSteam: { label: "Sunward Isles · Steam Workshop (설치본 기물 표·한글 문자열·원본 PNG 대조)", url: "https://steamcommunity.com/sharedfiles/filedetails/?id=1689234891" },
   firesEdge: { label: "Red Hook · The Fire's Edge 출시 안내", url: "https://www.darkestdungeon.com/news/the-fire-s-edge-available-now-/" },
   firesEdgeHotfix: { label: "Red Hook · The Fire's Edge Retail 27987 Hotfix", url: "https://www.darkestdungeon.com/news/darkest-dungeon-the-fire-s-edge-hotfix/" },
   night: { label: "The Night Parade · Steam Workshop", url: "https://steamcommunity.com/sharedfiles/filedetails/?id=2115544857" },
@@ -75,7 +75,7 @@ const REGION_ENEMY_INTEL = {
 };
 
 const curioAsset = (name) => `assets/curios/${name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "")}.png`;
-const sunwardCover = "assets/curios/sunward-isles.jpg";
+const sunwardAsset = (name) => `assets/curios/sunward-${name}.png`;
 const nightPreview = "assets/curios/night-parade.jpg";
 const bossImage = (slug) => `assets/bosses/${slug}-cutout.png`;
 const BOSS_IMAGES = {
@@ -187,21 +187,21 @@ const CURIOS = [
   C("farmstead", "썩은 음식", "Rotted Fare", [I("맨손", "선택 영웅 스트레스 -100.")]),
   C("farmstead", "비축품", "Stockpile", [I("해골 열쇠", "식량 6~12 + 임의 보급품 + 장신구."), I("맨손", "아편/약초/식량 중 하나 (2/3) 또는 빈손 (1/3).", "neutral")]),
 
-  C("sunward", "칠색조", "Ho-oh", [I("맨손", "파티 HP 최대치의 25% 회복 + 스트레스 -25. 치유 치명타 없음."), I("성수", "효과 없음.", "neutral")], sunwardCover, "제작자 변경 기록(회복 25%·스트레스 -25)과 실측표를 대조함. 보스방 직전 기물입니다."),
-  C("sunward", "하쿠타쿠", "Hakutaku", [I("맨손", "하쿠타쿠의 영예/지혜 긍정 기벽 생성 기록."), I("횃불", "스트레스 +100.", "avoid"), I("기타 보급품", "효과 없음 기록.", "neutral")], sunwardCover),
-  C("sunward", "쿠치사케 온나", "Kuchisake Onna", [I("대형 오마모리 (Major Omamori)", "현행 버전의 전용 상황별 상호작용. 결과는 게임 툴팁 확인.", "neutral"), I("맨손", "스트레스 +20.", "warn"), I("일반 보급품", "효과 없음 기록.", "neutral")], sunwardCover, "제작자가 예전 ‘비통의 오마모리’ 상호작용을 대형 오마모리로 변경했다고 명시했습니다."),
-  C("sunward", "오래된 신사", "Old Shrine", [I("성수", "야영까지 파티 치명타 +5%."), I("오마모리", "다른 오마모리로 강화."), I("횃불 / 해독제", "효과 없음.", "neutral"), I("맨손", "부정 기벽 생성 또는 아무 일 없음.", "warn")], sunwardCover),
-  C("sunward", "잊혀진 향", "Forgotten Incense", [I("횃불", "스트레스 -20 또는 스트레스 해소 효과 +50% (2전투)."), I("붕대 / 약초", "효과 없음.", "neutral"), I("맨손", "스트레스 +20.", "warn")], sunwardCover),
-  C("sunward", "야나기 바바", "Yanagi Baba", [I("해독제", "야영까지 방어 +25%."), I("횃불 / 성수 / 약초", "효과 없음.", "neutral"), I("맨손", "실측표에 결과 미기재 — 사용 비권장.", "warn")], sunwardCover),
-  C("sunward", "황폐한 오두막집", "Run-down Shack", [I("아편", "부정 기벽 제거."), I("약초", "인간공포증 부정 기벽 생성.", "avoid"), I("횃불 / 성수", "효과 없음.", "neutral"), I("맨손", "모든 소모품 ×4 + 골드/보석 또는 요괴공포증 부정 기벽.", "warn")], sunwardCover),
-  C("sunward", "잃어버린 화물", "Lost Cargo", [I("해골 열쇠", "많은 골드 획득."), I("맨손", "소량 골드 또는 아무 일 없음.", "neutral")], sunwardCover),
-  C("sunward", "칼날의 통", "Barrel of Blades", [I("붕대", "방어 관통 +15% 버프, 검술의 달인 긍정 기벽 또는 질병 가능."), I("맨손", "실측표에 결과 미기재 — 사용 비권장.", "warn")], sunwardCover),
-  C("sunward", "오래된 신사 종", "Old Shrine Bell", [I("오마모리", "다른 오마모리로 강화."), I("맨손", "일정 확률로 긍정 기벽 제거 가능.", "avoid")], sunwardCover),
-  C("sunward", "버려진 가마", "Abandoned Palaquin", [I("해골 열쇠", "많은 골드 획득."), I("횃불", "효과 없음.", "neutral"), I("맨손", "‘시체 발견’ 스트레스 증가 또는 아무 일 없음.", "warn")], sunwardCover),
-  C("sunward", "비전의 바둑판", "Esoteric Go Table", [I("확인 필요", "현행 Steam 가이드는 출현만 명시. 이 페이지에서 상호작용은 확인하지 못함.", "neutral")], sunwardCover, "개별 기물 상호작용 미확인"),
-  C("sunward", "흐트러진 나무", "Disheveled Tree", [I("확인 필요", "현행 Steam 가이드는 출현만 명시. 이 페이지에서 상호작용은 확인하지 못함.", "neutral")], sunwardCover, "개별 기물 상호작용 미확인"),
-  C("sunward", "우미보즈의 머리", "Umi-Bozu's Head", [I("맨손", "질병 1개 치료 기록. 대신 공포 4 (10라운드).", "warn")], sunwardCover, "나무위키가 연결한 실측표에만 확인됨; 최신 Steam 목록에는 빠져 있음"),
-  C("sunward", "잊어버린 성서", "Unremembered Scriptures", [I("아편", "파티 스트레스 -10."), I("횃불", "스트레스 증가.", "avoid"), I("맨손", "부정 기벽 제거."), I("기타 보급품", "효과 미확인.", "neutral")], sunwardCover)
+  C("sunward", "칠색조", "Ho-oh", [I("맨손", "파티 전체 최대 HP 25% 회복 + 스트레스 -25. 치유 치명타 없음.")], sunwardAsset("hoo"), "설치된 Sunward Isles의 ship_hoo 기물 표와 한글 문자열을 직접 대조했습니다. 보스방 직전 기물입니다."),
+  C("sunward", "영물 하쿠타쿠", "Hakutaku", [I("맨손", "‘하쿠타쿠의 은총’ 또는 ‘하쿠타쿠의 지혜’ 긍정 기벽 중 하나 (각 50%)."), I("횃불", "스트레스 +100.", "avoid"), I("기타 보급품", "상호작용 없음.", "neutral")], sunwardAsset("hakutaku")),
+  C("sunward", "입 찢어진 여인", "Kuchisake Onna", [I("상급 수호부적", "전용 긍정 기벽 ‘찢겨나간 입술’ 획득."), I("맨손", "80% 스트레스 +25 / 20% 아무 일 없음.", "warn"), I("일반 보급품", "상호작용 없음.", "neutral")], sunwardAsset("onna")),
+  C("sunward", "오래된 신사", "Old Shrine", [I("성수", "야영 전까지 파티 치명타 +5%."), I("하급 수호부적", "상급 수호부적 획득."), I("맨손", "33.34% 전리품 / 33.33% ‘신성 모독자’ 부정 기벽 / 33.33% 아무 일 없음.", "warn")], sunwardAsset("shrine")),
+  C("sunward", "잊혀진 향", "Forgotten Incense", [I("횃불", "2회 전투 동안 파티가 받는 스트레스 회복량 +50%."), I("맨손", "60% 스트레스 +15 / 20% ‘신성 모독자’ 부정 기벽 / 20% 무작위 질병.", "warn")], sunwardAsset("incense")),
+  C("sunward", "버들할멈", "Yanagi Baba", [I("해독제", "야영 전까지 대상 방어 +25%."), I("하급 수호부적", "야영 전까지 대상 스트레스 피해 +20%.", "avoid"), I("삽", "스트레스 +50.", "avoid"), I("맨손", "66.66% 횃불 -50 / 33.34% 골드·가보 전리품.", "warn")], sunwardAsset("baba")),
+  C("sunward", "황폐한 오두막집", "Run-down Shack", [I("하급 수호부적", "부정 기벽 1개 제거."), I("아편", "무작위 부정 기벽 1개 획득.", "avoid"), I("맨손", "40% 소모품/골드 전리품 / 20% 정찰 / 20% ‘요괴 공포증’ 부정 기벽 / 20% 아무 일 없음.", "warn")], sunwardAsset("shack")),
+  C("sunward", "잃어버린 화물", "Lost Cargo", [I("해골 열쇠", "골드·보석 전리품 3회 추첨."), I("맨손", "50% 전리품 / 50% 아무 일 없음.", "neutral")], sunwardAsset("crates")),
+  C("sunward", "잃어버린 성서", "Unremembered Scriptures", [I("아편", "파티 스트레스 -10."), I("하급 수호부적", "상급 수호부적 획득."), I("횃불", "스트레스 +25.", "avoid"), I("맨손", "각 33.33%: 부정 기벽 1개 제거 / 파티 스트레스 +10 / 아무 일 없음.", "warn")], sunwardAsset("monk")),
+  C("sunward", "칼날이 담긴 통", "Barrel of Blades", [I("붕대", "70% 야영 전까지 방어 관통 +15% / 30% ‘검술의 달인’ 질병."), I("맨손", "출혈·파상풍·무작위 질병·부정 기벽 위험. 드물게 ‘요괴 학살자’ 긍정 기벽 또는 전설 무기.", "warn")], sunwardAsset("barrel")),
+  C("sunward", "오래된 신사의 종", "Old Shrine Bell", [I("하급 수호부적", "상급 수호부적 획득."), I("삽", "긍정 기벽 1개 제거.", "avoid"), I("맨손", "70% 스트레스 -15 / 15% 긍정 기벽 1개 제거 / 15% 아무 일 없음.", "warn")], sunwardAsset("wani")),
+  C("sunward", "버려진 가마", "Abandoned Palaquin", [I("해골 열쇠", "골드·보석 전리품 5회 추첨."), I("맨손", "50% 가보·골드 전리품 / 20% 스트레스 +25 / 30% 아무 일 없음.", "warn")], sunwardAsset("palan")),
+  C("sunward", "우미보즈의 머리", "Umi-Bozu's Head", [I("맨손", "질병 1개 치료. 대신 공포 4가 10라운드 지속.", "warn")], sunwardAsset("head")),
+  C("sunward", "부스스한 나무", "Disheveled Tree", [I("맨손", "미니보스 ‘주보코’ 전투를 소환.", "avoid")], sunwardAsset("jubo")),
+  C("sunward", "묘수풀이 바둑판", "Esoteric Go Table", [I("아편", "‘태양을 향한 전술가’ 긍정 기벽 획득."), I("맨손", "66.67% ‘불안한 양심’ 질병 / 33.33% ‘태양을 향한 전술가’ 긍정 기벽.", "warn")], sunwardAsset("go"))
 ];
 
 const NIGHT_PARADE = C("night", "Night Parade 신규 기물", "New curios between waves", [I("확인 필요", "제작자는 웨이브 사이에 복수의 신규 기물이 출현한다고만 공개함.", "neutral"), I("비(Rain)", "제작자 답변상 비도 기물로 취급되나, 개별 효과표는 공개되지 않음.", "warn")], nightPreview, "공개된 개별 명칭·효과표 없음 — 90개에 미합산");

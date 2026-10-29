@@ -30,7 +30,7 @@
     {
       "item": "The Fire's Edge current hotfix",
       "result": "verified",
-      "version_or_context": "Fire's Edge Retail build 27987, 2026-09-14; hero skill recommendations rechecked 2026-10-30",
+      "version_or_context": "Fire's Edge Retail build 27987, 2026-09-14; installed koreana localization tables and hero string tables rechecked 2026-10-30",
       "sources": [
         "https://www.darkestdungeon.com/news/the-fire-s-edge-available-now-/",
         "https://www.darkestdungeon.com/news/darkest-dungeon-the-fire-s-edge-hotfix/",
@@ -38,12 +38,12 @@
         "https://darkestdungeon.wiki.gg/wiki/Duelist_%28Darkest_Dungeon%29"
       ],
       "changed": true,
-      "notes": "Added the Runaway and Duelist to the offline expedition planner. Runaway recommendations use her seven original-game skills and rank legality; Duelist is marked as the exception that equips all seven combat skills, including the free Anticipation stance switch. Recommendations distinguish normal expeditions from boss fights and retain the Retail 27987 balance baseline. Official notes confirm the live Duelist/Riposte, Touché, Feint, Disengage, Flèche and Runaway balance changes."
+      "notes": "The planner now displays the current Korean strings for every included hero and recommended skill. This corrects legacy labels such as 성기사→성전사, 사냥개 조련사→조련사, 머스킷티어→총사, and the Runaway/Duelist skill labels. Runaway and Duelist retain their live rank rules; Duelist is explicitly marked as the exception that equips all seven combat skills, including the free 예상 stance switch. Recommendations distinguish normal expeditions from boss fights and retain the Retail 27987 balance baseline."
     },
     {
       "item": "Sunward Isles curio and region material",
-      "result": "partially_verified",
-      "version_or_context": "Korean field-test record cross-checked with the published Workshop curio changelog on 2026-10-29",
+      "result": "verified",
+      "version_or_context": "Installed Workshop 1689234891 curio CSV, effect definitions, koreana.loc2 and original curio PNG assets checked 2026-10-30",
       "sources": [
         "https://steamcommunity.com/sharedfiles/filedetails/?id=1689234891",
         "https://namu.moe/w/%EB%8B%A4%ED%82%A4%EC%8A%A4%ED%8A%B8%20%EB%8D%98%EC%A0%84/%EB%AA%A8%EB%93%9C/%ED%83%9C%EC%96%91%EC%9D%84%20%ED%96%A5%ED%95%9C%20%EC%84%AC%EB%93%A4",
@@ -51,7 +51,7 @@
         "https://steamcommunity.com/sharedfiles/filedetails/changelog/1689234891"
       ],
       "changed": true,
-      "notes": "Updated Ho-oh, Kuchisake Onna, Old Shrine, Yanagi Baba, Run-down Shack, Forgotten Incense, Unremembered Scriptures, Lost Cargo, Barrel of Blades, Old Shrine Bell and Abandoned Palaquin. Ho-oh now records the published 25% max-HP / -25 stress result; Kuchisake Onna uses Major Omamori. Effects not established by those records remain explicitly marked as confirmation-needed rather than guessed."
+      "notes": "All 15 Sunward cards now use the mod's own individual in-game PNG sprite, rather than a shared cover image. Their Korean titles, supply labels and effects were read from the installed current Workshop files and cross-checked against the Korean field-test record. This corrects entries including 영물 하쿠타쿠, 입 찢어진 여인, 버들할멈, 잃어버린 성서, 칼날이 담긴 통, 부스스한 나무 and 묘수풀이 바둑판; previously unconfirmed Go Table and Disheveled Tree outcomes are now backed by the installed curio table."
     },
     {
       "item": "The Night Parade",
