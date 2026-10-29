@@ -51,7 +51,7 @@
         "https://steamcommunity.com/sharedfiles/filedetails/changelog/1689234891"
       ],
       "changed": true,
-      "notes": "All 15 Sunward cards now use the mod's own individual in-game PNG sprite, rather than a shared cover image. Their Korean titles, supply labels and effects were read from the installed current Workshop files and cross-checked against the Korean field-test record. This corrects entries including 영물 하쿠타쿠, 입 찢어진 여인, 버들할멈, 잃어버린 성서, 칼날이 담긴 통, 부스스한 나무 and 묘수풀이 바둑판; previously unconfirmed Go Table and Disheveled Tree outcomes are now backed by the installed curio table."
+      "notes": "The installed Workshop files remain the authority for current Korean titles, supply labels and effects. The earlier card art used full animation sprite sheets and therefore displayed incorrectly. On 2026-10-30 the 12 matching dungeon screenshots from the supplied Korean field-test record (post 125970) replaced those sheets; Ho-oh, Disheveled Tree and Esoteric Go Table use one isolated in-game frame each from the installed artwork. The same review corrects ‘하쿠타쿠의 영예’ and marks 검술의 달인 as a positive quirk rather than a disease."
     },
     {
       "item": "The Night Parade",

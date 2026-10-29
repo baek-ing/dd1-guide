@@ -63,6 +63,7 @@ button:hover, button:focus-visible, select:focus-visible, input:focus-visible { 
 .curio-card:hover { border-color: #987149; transform: translateY(-2px); transition: transform .14s ease, border-color .14s ease; }
 .media { height: clamp(300px, 25vw, 380px); display: grid; place-items: center; padding: 26px; overflow: hidden; background: radial-gradient(ellipse, #392824 0%, #16100f 70%); border-bottom: 1px solid #4a3731; }
 .media img { display: block; width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: contain; object-position: center; transform: scale(.86); filter: saturate(1.04) contrast(1.04); }
+.media img[src*="sunward-ref-"], .media img[src*="sunward-crop-"] { transform: scale(.98); }
 .media img.missing { display: none; }
 .image-fallback { color: var(--muted); font-size: .82rem; }
 .empty-state { margin: 28px 0; padding: 18px; border: 1px dashed #72543c; color: var(--muted); background: rgba(233,187,99,.06); text-align: center; }

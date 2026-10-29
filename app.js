@@ -88,7 +88,7 @@ function makeCard(item, index = 0) {
 
 function areaNotice(area) {
   if (area === "courtyard") return "Courtyard Plus: Lost Treasure Box와 Trinket Chest 모두 열쇠 구멍이 제거되어 해골 열쇠 상호작용이 없습니다. 퀘스트 전용 기물은 카드 하단에 별도로 표시했습니다.";
-  if (area === "sunward") return "Sunward Isles: 설치된 Steam Workshop 원본의 기물 표·효과 정의·한글 문자열과 나무위키가 연결한 실측 기록을 2026-10-30에 대조했습니다. 아래 15개 카드의 명칭·보급품·효과·이미지는 설치본 기준입니다.";
+  if (area === "sunward") return "Sunward Isles: 설치된 Steam Workshop 원본의 기물 표·효과 정의·한글 문자열을 2026-10-30에 대조했습니다. 카드 이미지는 기물 스프라이트 시트가 아닌, 실측표의 던전 내 스크린샷 12장과 설치본에서 잘라낸 단일 프레임 3장으로 교체했습니다.";
   if (area === "night") return "The Night Parade: 제작자가 신규 기물(복수)을 명시하지만 개별 이름·효과 목록은 공개하지 않았습니다. 따라서 확인된 90개 총수에는 넣지 않았습니다.";
   return "";
 }

@@ -24,7 +24,8 @@ if (!expedition.includes("emptyPositions.forEach") || expedition.includes("ì •í™
 if (expedition.includes("Object.entries(HEROES).filter(([, hero]) => hero.ranks.includes(Number(position)))")) failures.push("every hero must be selectable in every rank");
 if (expedition.includes("/api/recommend") || expedition.includes("trinket")) failures.push("expedition planner must not depend on trinkets or a remote recommendation API");
 if (!server.includes('mode: "offline"')) failures.push("local server offline health mode is missing");
-if (!fs.readFileSync(path.join(root, "data.js"), "utf8").includes("sunwardAsset")) failures.push("Sunward individual curio image mapping is missing");
+const curioData = fs.readFileSync(path.join(root, "data.js"), "utf8");
+if (!curioData.includes("sunwardReference") || !curioData.includes("sunwardCrop") || !curioData.includes('sunwardReference("palan")')) failures.push("Sunward field-screen image mapping is missing");
 ["app.js", "data.js", "expedition.js", "server.js", "scripts/check-assets.js", "scripts/smoke-server.js"].forEach((file) => {
   const result = childProcess.spawnSync(process.execPath, ["--check", path.join(root, file)], { encoding: "utf8" });
   if (result.status !== 0) failures.push(`syntax check failed: ${file}: ${result.stderr.trim()}`);
