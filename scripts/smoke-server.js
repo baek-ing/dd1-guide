@@ -23,19 +23,12 @@ async function main() {
   const { port } = server.address();
   try {
     const home = await request(port, "GET", "/");
-    if (home.status !== 200 || !home.body.includes("출정 세팅 추천")) throw new Error("guide home page did not serve");
+    if (home.status !== 200 || !home.body.includes("rank-hero-selects") || !home.body.includes("출정 세팅 추천")) throw new Error("offline party planner did not serve");
     const health = await request(port, "GET", "/api/health");
-    if (health.status !== 200 || !JSON.parse(health.body).ok) throw new Error("health endpoint did not serve");
-    const invalid = await request(port, "POST", "/api/recommend", { heroes: [] });
-    if (invalid.status !== 400) throw new Error("invalid recommendation request was not rejected");
-    const pixel = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScL9NwAAAABJRU5ErkJggg==";
-    const missingKey = await request(port, "POST", "/api/recommend", {
-      expedition: { region: "Ruins", difficulty: "Champion", type: "normal", boss: "" },
-      heroes: ["4", "3", "2", "1"].map((position) => ({ position, image: pixel })),
-      trinkets: []
-    });
-    if (missingKey.status !== 503 || !JSON.parse(missingKey.body).error.includes("API 키")) throw new Error("missing-key error flow did not preserve a friendly response");
-    console.log("Server smoke test passed: static guide, health, validation, and friendly API-key error flow.");
+    if (health.status !== 200 || !JSON.parse(health.body).ok || JSON.parse(health.body).mode !== "offline") throw new Error("offline health endpoint did not serve");
+    const missing = await request(port, "GET", "/missing-file");
+    if (missing.status !== 404) throw new Error("missing static files were not handled");
+    console.log("Server smoke test passed: static guide, offline planner markup, health, and missing-file handling.");
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }

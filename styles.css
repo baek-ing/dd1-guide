@@ -201,3 +201,23 @@ select, button, input { background-color: #08090a; }
 .hero-slot img, .trinket-preview { background: #070809; }
 .trinket-dropzone { border-color: #766047; background: radial-gradient(ellipse, rgba(48,39,35,.42), rgba(7,8,9,.8)); }
 .recommendation-card { border-color: #513b39; background: linear-gradient(145deg, #171415, #08090a); }
+
+/* Offline party planner: concise rank lists and immediate skill cards. */
+.party-builder { min-width: 0; padding: 18px; border: 1px solid #443a37; background: rgba(7, 8, 9, .76); }
+.rank-hero-selects { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.rank-hero-select { display: grid; gap: 7px; min-width: 0; padding: 14px; border: 1px solid #4a403c; background: linear-gradient(145deg, #151617, #090a0b); }
+.rank-hero-select select { width: 100%; min-width: 0; }
+.rank-label { color: var(--gold); font-size: 1rem; font-weight: 900; letter-spacing: .04em; }
+.rank-hero-select small { color: var(--muted); font-size: .75rem; }
+.party-actions { padding-top: 0; }
+.skill-recommendations { display: grid; gap: 14px; }
+.skill-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.skill-card { min-width: 0; padding: 18px; border: 1px solid #513b39; border-top: 3px solid #875149; background: linear-gradient(145deg, #171415, #08090a); }
+.skill-card h3 { margin: 0 0 13px; color: var(--ink); font-size: 1.05rem; }
+.skill-card h3 small { display: block; margin-top: 4px; color: var(--muted); font-family: ui-monospace, Consolas, monospace; font-size: .72rem; font-weight: 500; }
+.skill-list { display: grid; gap: 7px; margin: 0; padding-left: 22px; color: var(--gold); font-weight: 800; line-height: 1.45; }
+.skill-list li::marker { color: var(--red); }
+.skill-special { margin: 13px 0 0; padding: 10px 12px; border-left: 2px solid var(--gold); background: rgba(233, 187, 99, .07); color: var(--gold); font-size: .82rem; font-weight: 800; line-height: 1.55; }
+.skill-reason { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid #413633; color: var(--muted); font-size: .85rem; line-height: 1.6; }
+
+@media (max-width: 720px) { .rank-hero-selects { grid-template-columns: repeat(2, minmax(0, 1fr)); } .skill-grid { grid-template-columns: 1fr; } .party-builder { padding: 14px; } }
